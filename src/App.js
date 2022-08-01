@@ -1,6 +1,6 @@
 import { CssBaseline } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import Homepage from "./pages/Homepage";
+import Routers from "./routers";
 
 const theme = createTheme({
   palette: { mode: "dark" },
@@ -14,7 +14,7 @@ function App() {
     <div className="App">
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Homepage />
+        <Routers/>
       </ThemeProvider>
     </div>
   );

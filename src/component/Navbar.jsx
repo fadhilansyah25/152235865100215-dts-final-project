@@ -15,14 +15,22 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../assets/img/logo.svg";
 import useScrollPosition from "../hooks/useScrollPosition";
+import { useNavigate } from "react-router-dom";
 
-const pages = ["Home", "Cryptocurrencies", "Exchange", "News", "Watchlist"];
+const pages = [
+  { title: "Home", nav: "/" },
+  { title: "Cryptocurrencies", nav: "/cryptocurrencies" },
+  { title: "Exchange", nav: "/exchange" },
+  { title: "News", nav: "/news" },
+  { title: "Watchlist", nav: "/watchlist" },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const scrollPositon = useScrollPosition();
+  const navigate = useNavigate()
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -89,8 +97,8 @@ export default function Navbar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.title} onClick={() => navigate(page.nav)}>
+                  <Typography textAlign="center">{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -113,8 +121,8 @@ export default function Navbar() {
           >
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.title}
+                onClick={() => navigate(page.nav)}
                 sx={{
                   my: 2,
                   color: "white",
@@ -122,7 +130,7 @@ export default function Navbar() {
                   textTransform: "capitalize",
                 }}
               >
-                {page}
+                {page.title}
               </Button>
             ))}
           </Box>

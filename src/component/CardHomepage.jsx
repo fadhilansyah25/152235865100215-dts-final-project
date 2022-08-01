@@ -1,10 +1,11 @@
 import React from "react";
-import { Card, CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Skeleton, Typography, Stack } from "@mui/material";
+import millify from "millify";
 
-export default function CardHomepage({ title, data }) {
-  return (
+export default function CardHomepage({ title, data, prefix, setMil }) {
+  return data ? (
     <Card
-    variant="outlined"
+      variant="outlined"
       sx={{
         minWidth: 180,
       }}
@@ -24,8 +25,23 @@ export default function CardHomepage({ title, data }) {
             fontWeight: 600,
           }}
         >
-          {data}
+          {prefix ? `${prefix} ` : null}
+          {setMil? millify(Number(data)) : Number(data)}
         </Typography>
+      </CardContent>
+    </Card>
+  ) : (
+    <Card
+      variant="outlined"
+      sx={{
+        minWidth: 180,
+      }}
+    >
+      <CardContent>
+        <Stack spacing={1}>
+          <Skeleton animation="wave" variant="text" />
+          <Skeleton animation="wave" variant="text" />
+        </Stack>
       </CardContent>
     </Card>
   );
