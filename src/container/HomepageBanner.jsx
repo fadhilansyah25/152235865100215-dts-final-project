@@ -3,7 +3,7 @@ import { Container } from "@mui/system";
 import { Box, Typography } from "@mui/material";
 import CustomButton from "../component/CustomButton";
 
-export default function HeroBanner() {
+export default function HomepageBanner() {
   return (
     <Box
       sx={{
