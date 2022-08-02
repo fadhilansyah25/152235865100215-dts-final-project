@@ -96,7 +96,7 @@ export default function CustomTable({
                         display: "flex",
                         alignItems: "center",
                         flexGrow: 1,
-                        fontWeight: 600
+                        fontWeight: 600,
                       }}
                     >
                       <Box
@@ -116,11 +116,17 @@ export default function CustomTable({
                     sx={{
                       fontWeight: 700,
                       color: `${
-                        Number(item.change) < 0 ? "#ea3943" : "#16c784"
+                        Number(item.change) < 0
+                          ? "#ea3943"
+                          : Number(item.change) === 0
+                          ? "gray"
+                          : "#16c784"
                       }`,
                     }}
                   >
-                    {item.change === null ? "-" : `${item.change} %`}
+                    {item.change === null || !Number(item.change) === 0
+                      ? "-"
+                      : `${item.change} %`}
                   </TableCell>
                   <TableCell align="right">
                     {formatterUSD.format(item.marketCap)}
