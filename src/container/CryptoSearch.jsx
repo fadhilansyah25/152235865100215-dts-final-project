@@ -9,7 +9,7 @@ import Divider from "@mui/material/Divider";
 
 export default function CryptoSearch() {
   const [searchCryp, setSearchCryp] = useState("");
-  const { data } = useGetCryptosByNameQuery(searchCryp);
+  const { data, isFetching } = useGetCryptosByNameQuery(searchCryp);
 
   const searchInputOnChange = (e) => {
     setSearchCryp(e.target.value);
@@ -34,6 +34,7 @@ export default function CryptoSearch() {
         </Typography>
         <SearchInput
           defaultValue={searchCryp}
+          placeholder="Search Cryptocurrencies"
           onChange={searchInputOnChange}
           onSubmit={(e) => {
             e.preventDefault();
@@ -54,6 +55,7 @@ export default function CryptoSearch() {
         data={data?.data?.coins}
         setNumber
         setPagination
+        isFetching={isFetching}
       />
     </Container>
   );

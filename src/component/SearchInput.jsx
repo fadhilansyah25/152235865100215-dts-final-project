@@ -11,6 +11,7 @@ export default function SearchInput({
   defaultValue,
   onSubmit,
   setButton,
+  placeholder,
 }) {
   return (
     <Paper
@@ -28,7 +29,7 @@ export default function SearchInput({
       <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
       <InputBase
         sx={{ ml: 1, flex: 1 }}
-        placeholder="Search Cryptocurrencies"
+        placeholder={placeholder}
         inputProps={{ "aria-label": "search cryptocurrencies" }}
         onChange={onChange}
         value={defaultValue}

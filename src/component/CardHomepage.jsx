@@ -26,7 +26,7 @@ export default function CardHomepage({ title, data, prefix, setMil }) {
           }}
         >
           {prefix ? `${prefix} ` : null}
-          {setMil? millify(Number(data)) : Number(data)}
+          {setMil? millify(Number(data), {space: true}) : Number(data)}
         </Typography>
       </CardContent>
     </Card>

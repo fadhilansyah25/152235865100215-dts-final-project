@@ -12,7 +12,7 @@ import {
   TableFooter,
   TablePagination,
 } from "@mui/material";
-import { formatter } from "../utils/currencyFormatter";
+import { formatterUSD } from "../utils/currencyFormatter";
 import Logo from "../assets/img/logo.svg";
 import TablePaginationActions from "./TablePaginationActions";
 import CustomTableSkeleton from "./CustomTableSkeleton";
@@ -23,6 +23,7 @@ export default function CustomTable({
   data,
   setNumber,
   setPagination,
+  isFetching,
 }) {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -32,7 +33,7 @@ export default function CustomTable({
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data?.length) : 0;
 
-  const handleChangePage = (event, newPage) => {
+  const handleChangePage = (_, newPage) => {
     setPage(newPage);
   };
 
@@ -61,7 +62,7 @@ export default function CustomTable({
           </TableRow>
         </TableHead>
         <TableBody>
-          {Array.isArray(data) ? (
+          {Array.isArray(data) && !isFetching ? (
             data?.length !== 0 ? (
               (rowsPerPage > 0
                 ? data?.slice(
@@ -107,7 +108,7 @@ export default function CustomTable({
                   </TableCell>
                   <TableCell align="right">{item.symbol}</TableCell>
                   <TableCell align="right">
-                    {formatter.format(item.price)}
+                    {formatterUSD.format(item.price)}
                   </TableCell>
                   <TableCell
                     align="right"
@@ -120,10 +121,10 @@ export default function CustomTable({
                     {item.change === null ? "-" : `${item.change} %`}
                   </TableCell>
                   <TableCell align="right">
-                    {formatter.format(item.marketCap)}
+                    {formatterUSD.format(item.marketCap)}
                   </TableCell>
                   <TableCell align="right">
-                    {formatter.format(item["24hVolume"])}
+                    {formatterUSD.format(item["24hVolume"])}
                   </TableCell>
                 </TableRow>
               ))
