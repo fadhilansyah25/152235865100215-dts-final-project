@@ -26,7 +26,21 @@ export default function CardHomepage({ title, data, prefix, setMil }) {
           }}
         >
           {prefix ? `${prefix} ` : null}
-          {setMil? millify(Number(data), {space: true}) : Number(data)}
+          {setMil
+            ? millify(Number(data), {
+                space: true,
+                precision: 3,
+                units: [
+                  "",
+                  "K",
+                  "Million",
+                  "Billion",
+                  "Trillion",
+                  "Quadrillion",
+                  "Quintillion",
+                ],
+              })
+            : Number(data).toLocaleString()}
         </Typography>
       </CardContent>
     </Card>

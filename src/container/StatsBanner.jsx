@@ -18,8 +18,7 @@ export default function StatsBanner() {
       <Box sx={{ display: "flex", justifyContent: "space-between", my: 5 }}>
         <CardHomepage
           title="Total Cryptocurrencies"
-          data={globalStats?.total}
-          setMil
+          data={(globalStats?.total)}
         ></CardHomepage>
         <CardHomepage
           title="Total Exchanges"
@@ -40,7 +39,6 @@ export default function StatsBanner() {
         <CardHomepage
           title="Total Markets"
           data={globalStats?.totalMarkets}
-          setMil
         ></CardHomepage>
       </Box>
       <Typography

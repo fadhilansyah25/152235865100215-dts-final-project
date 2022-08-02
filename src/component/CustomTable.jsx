@@ -96,6 +96,7 @@ export default function CustomTable({
                         display: "flex",
                         alignItems: "center",
                         flexGrow: 1,
+                        fontWeight: 600
                       }}
                     >
                       <Box
@@ -113,6 +114,7 @@ export default function CustomTable({
                   <TableCell
                     align="right"
                     sx={{
+                      fontWeight: 700,
                       color: `${
                         Number(item.change) < 0 ? "#ea3943" : "#16c784"
                       }`,

@@ -19,12 +19,10 @@ export default function GlobalStats() {
         <CardHomepage
           title="Total Cryptocurrencies"
           data={globalStats?.data?.totalCoins}
-          setMil
         ></CardHomepage>
         <CardHomepage
           title="Total Exchanges"
           data={globalStats?.data?.totalExchanges}
-          setMil
         ></CardHomepage>
         <CardHomepage
           title="Total 24h Volume"
@@ -41,7 +39,6 @@ export default function GlobalStats() {
         <CardHomepage
           title="Total Markets"
           data={globalStats?.data?.totalMarkets}
-          setMil
         ></CardHomepage>
       </Box>
       <Box display="grid" gridTemplateColumns="repeat(12, 1fr)" gap={5}>

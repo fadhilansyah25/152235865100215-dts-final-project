@@ -4,6 +4,7 @@ import { useGetCryptoNewsQuery } from "../services/cryptoNewsAPI";
 import { Box, Container, Typography } from "@mui/material";
 import CardNews from "../component/CardNews";
 import AutoComplete from "../component/AutoComplete";
+import Footer from "../container/Footer";
 
 export default function CryptoNewsPage() {
   const [Params, setParams] = useState("Cryptocurrency");
@@ -58,6 +59,7 @@ export default function CryptoNewsPage() {
               ))}
         </Box>
       </Container>
+      <Footer/>
     </>
   );
 }

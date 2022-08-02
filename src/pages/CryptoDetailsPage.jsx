@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import Navbar from "../component/Navbar";
+import Footer from "../container/Footer";
 import { useParams } from "react-router-dom";
 import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
-import { Box, Container, Typography, Skeleton } from "@mui/material";
+import { Box, Container, Typography, Skeleton, Button } from "@mui/material";
 import millify from "millify";
 import { formatterUSD } from "../utils/currencyFormatter";
 import dayjs from "dayjs";
@@ -11,9 +12,9 @@ import StatsTable from "../component/StatsTable";
 export default function CryptoDetailsPage() {
   const { id } = useParams();
   const { data: cryptoDetails } = useGetCryptoDetailsQuery(id);
+  const [readMore, setReadMore] = useState(false);
 
   const coinData = cryptoDetails?.data?.coin;
-  console.log(coinData);
 
   const valueStats = !cryptoDetails
     ? undefined
@@ -231,7 +232,39 @@ export default function CryptoDetailsPage() {
             <StatsTable valueStats={otherStats} />
           </Box>
         </Box>
+
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(2, 2fr)"
+          sx={{ gridGap: 20, my: 5 }}
+        >
+          <Box>
+            <Typography variant="h5" sx={{ fontWeight: 700 }}>
+              What is {coinData?.name}
+            </Typography>{" "}
+            <Box
+              component="div"
+              sx={{
+                p: {
+                  fontSize: "14px",
+                },
+                maxHeight: readMore ? "auto" : 200,
+                overflow: "hidden",
+              }}
+              dangerouslySetInnerHTML={{ __html: coinData?.description }}
+            />
+            <Button
+              variant="outlined"
+              fullWidth
+              sx={{ mt: 1, textTransform: "capitalize" }}
+              onClick={() => setReadMore(!readMore)}
+            >
+              {readMore? "Less more" : "Read more"}
+            </Button>
+          </Box>
+        </Box>
       </Container>
+      <Footer />
     </>
   );
 }
