@@ -30,7 +30,7 @@ export default function HeroBanner() {
             variant="h2"
             sx={{ fontWeight: 900, textAlign: "center", width: "60%" }}
           >
-            We make crypto clear and simple
+            We make crypto clear and simple.
           </Typography>
           <Typography
             variant="body2"
