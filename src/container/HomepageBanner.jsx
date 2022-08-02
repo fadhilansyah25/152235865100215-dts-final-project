@@ -3,7 +3,7 @@ import { Container } from "@mui/system";
 import { Box, Typography } from "@mui/material";
 import CustomButton from "../component/CustomButton";
 
-export default function HeroBanner() {
+export default function HomepageBanner() {
   return (
     <Box
       sx={{
@@ -30,7 +30,7 @@ export default function HeroBanner() {
             variant="h2"
             sx={{ fontWeight: 900, textAlign: "center", width: "60%" }}
           >
-            We make crypto clear and simple
+            We make crypto clear and simple.
           </Typography>
           <Typography
             variant="body2"
