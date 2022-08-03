@@ -109,7 +109,7 @@ export default function CustomTable({
                   </TableCell>
                   <TableCell align="right">{item.symbol}</TableCell>
                   <TableCell align="right">
-                    {formatterUSD.format(item.price)}
+                    {formatterUSD.format(item.price).replace(/^(\D+)/, "$1 ")}
                   </TableCell>
                   <TableCell
                     align="right"
@@ -126,13 +126,19 @@ export default function CustomTable({
                   >
                     {item.change === null || !Number(item.change) === 0
                       ? "-"
-                      : `${item.change} %`}
+                      : `${Number(item.change) >= 0 ? "+" : ""}${Number(
+                          item.change
+                        ).toFixed(2)}%`}
                   </TableCell>
                   <TableCell align="right">
-                    {formatterUSD.format(item.marketCap)}
+                    {formatterUSD
+                      .format(item.marketCap)
+                      .replace(/^(\D+)/, "$1 ")}
                   </TableCell>
                   <TableCell align="right">
-                    {formatterUSD.format(item["24hVolume"])}
+                    {formatterUSD
+                      .format(item["24hVolume"])
+                      .replace(/^(\D+)/, "$1 ")}
                   </TableCell>
                 </TableRow>
               ))
