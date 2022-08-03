@@ -26,6 +26,12 @@ export const cryptoApi = createApi({
     getCryptoDetails: builder.query({
       query: (cryptoId) => createRequest(`/coin/${cryptoId}`),
     }),
+    getCryptoExchanges: builder.query({
+      query: (cryptoId) => createRequest(`/coin/${cryptoId}/exchanges?limit=5&orderBy=24hVolume&offset=0&orderDirection=desc`),
+    }),
+    getCryptoMarkets: builder.query({
+      query: (cryptoId) => createRequest(`/coin/${cryptoId}/markets?limit=5&orderBy=24hVolume&offset=0&orderDirection=desc`),
+    }),
   }),
 });
 
@@ -33,5 +39,7 @@ export const {
   useGetCryptosQuery,
   useGetGlobalStatsQuery,
   useGetCryptosByNameQuery,
-  useGetCryptoDetailsQuery
+  useGetCryptoDetailsQuery,
+  useGetCryptoExchangesQuery,
+  useGetCryptoMarketsQuery
 } = cryptoApi;

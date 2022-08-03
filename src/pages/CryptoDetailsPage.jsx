@@ -2,19 +2,29 @@ import React, { useState } from "react";
 import Navbar from "../component/Navbar";
 import Footer from "../container/Footer";
 import { useParams } from "react-router-dom";
-import { useGetCryptoDetailsQuery } from "../services/cryptoApi";
+import {
+  useGetCryptoDetailsQuery,
+  useGetCryptoExchangesQuery,
+  useGetCryptoMarketsQuery,
+} from "../services/cryptoApi";
 import { Box, Container, Typography, Skeleton, Button } from "@mui/material";
 import millify from "millify";
 import { formatterUSD } from "../utils/currencyFormatter";
 import dayjs from "dayjs";
 import StatsTable from "../component/StatsTable";
+import MarketExchangeTable from "../component/MarketExchangeTable";
 
 export default function CryptoDetailsPage() {
   const { id } = useParams();
   const { data: cryptoDetails } = useGetCryptoDetailsQuery(id);
+  const { data: cryptoExchange } = useGetCryptoExchangesQuery(id);
+  const { data: cryptoMarkets } = useGetCryptoMarketsQuery(id);
   const [readMore, setReadMore] = useState(false);
-
   const coinData = cryptoDetails?.data?.coin;
+  const exchanges = cryptoExchange?.data?.exchanges;
+  const markets = cryptoMarkets?.data?.markets;
+
+  console.info(markets);
 
   const valueStats = !cryptoDetails
     ? undefined
@@ -192,51 +202,7 @@ export default function CryptoDetailsPage() {
         <Box
           display="grid"
           gridTemplateColumns="repeat(2, 2fr)"
-          sx={{ gridGap: 20 }}
-        >
-          <Box>
-            <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
-              Value Statistics
-            </Typography>
-            <Typography
-              component="div"
-              variant="body2"
-              color="secondary"
-              sx={{ mb: 3 }}
-            >
-              {!cryptoDetails ? (
-                <Skeleton width={400} />
-              ) : (
-                `An overview showing the statistics of ${coinData?.name}, such as the base
-          and quote currency, the rank, and trading volume.`
-              )}
-            </Typography>
-            <StatsTable valueStats={valueStats} />
-          </Box>
-          <Box>
-            <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
-              Supply information
-            </Typography>
-            <Typography
-              component="div"
-              variant="body2"
-              color="secondary"
-              sx={{ mb: 3 }}
-            >
-              {!cryptoDetails ? (
-                <Skeleton width={400} />
-              ) : (
-                `View the total and circulating supply of Bitcoin, including details on how the supplies are calculated.`
-              )}
-            </Typography>
-            <StatsTable valueStats={otherStats} />
-          </Box>
-        </Box>
-
-        <Box
-          display="grid"
-          gridTemplateColumns="repeat(2, 2fr)"
-          sx={{ gridGap: 20, my: 5 }}
+          sx={{ gridGap: 70 }}
         >
           <Box>
             <Typography variant="h5" sx={{ fontWeight: 700 }}>
@@ -259,8 +225,109 @@ export default function CryptoDetailsPage() {
               sx={{ mt: 1, textTransform: "capitalize" }}
               onClick={() => setReadMore(!readMore)}
             >
-              {readMore? "Less more" : "Read more"}
+              {readMore ? "Less more" : "Read more"}
             </Button>
+          </Box>
+          <Box>
+            <Box>
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                Value Statistics
+              </Typography>
+              <Typography
+                component="div"
+                variant="body2"
+                color="secondary"
+                sx={{ mb: 3 }}
+              >
+                {!cryptoDetails ? (
+                  <Skeleton width={400} />
+                ) : (
+                  `An overview showing the statistics of ${coinData?.name}, such as the base
+          and quote currency, the rank, and trading volume.`
+                )}
+              </Typography>
+              <StatsTable valueStats={valueStats} />
+            </Box>
+            <Box sx={{mt: 5}}>
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+                Supply information
+              </Typography>
+              <Typography
+                component="div"
+                variant="body2"
+                color="secondary"
+                sx={{ mb: 3 }}
+              >
+                {!cryptoDetails ? (
+                  <Skeleton width={400} />
+                ) : (
+                  `View the total and circulating supply of ${coinData?.name}, including details on how the supplies are calculated.`
+                )}
+              </Typography>
+              <StatsTable valueStats={otherStats} />
+            </Box>
+          </Box>
+        </Box>
+        {/* <Box
+          display="grid"
+          gridTemplateColumns="repeat(2, 2fr)"
+          sx={{ gridGap: 70, my: 5 }}
+        >
+
+        </Box> */}
+        <Box
+          display="grid"
+          gridTemplateColumns="repeat(2, 2fr)"
+          sx={{ gridGap: 70, my: 5 }}
+        >
+          <Box>
+            <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+              {`Best exchanges to buy ${coinData?.name}`}
+            </Typography>
+            <Typography
+              component="div"
+              variant="body2"
+              color="secondary"
+              sx={{ mb: 3 }}
+            >
+              {!cryptoDetails ? (
+                <Skeleton width={400} />
+              ) : (
+                `The top crypto exchanges that have ${coinData?.name} available for trading, ranked by 24h trading volume and the current price.
+                `
+              )}
+            </Typography>
+            <MarketExchangeTable
+              theadData={[
+                { title: "Exchange", align: "left", colSpan: 3 },
+                { title: "24H Volume", align: "right", colSpan: 1 },
+              ]}
+              data={exchanges}
+            />
+          </Box>
+          <Box>
+            <Typography variant="h5" sx={{ fontWeight: 700, mb: 2 }}>
+              {`Markets`}
+            </Typography>
+            <Typography
+              component="div"
+              variant="body2"
+              color="secondary"
+              sx={{ mb: 3 }}
+            >
+              {!cryptoDetails ? (
+                <Skeleton width={400} />
+              ) : (
+                `A list of the top ${coinData?.name} markets across all crypto exchanges based on the highest 24h trading volume, with their current price.`
+              )}
+            </Typography>
+            <MarketExchangeTable
+              theadData={[
+                { title: "Market", align: "left", colSpan: 3 },
+                { title: "24H Volume", align: "right", colSpan: 1 },
+              ]}
+              data={markets}
+            />
           </Box>
         </Box>
       </Container>
