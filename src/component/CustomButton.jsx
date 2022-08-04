@@ -1,7 +1,9 @@
 import React from "react";
 import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
-export default function CustomButton({ children }) {
+export default function CustomButton({ children, nav }) {
+  const navigate = useNavigate();
   return (
     <Button
       variant="contained"
@@ -18,6 +20,7 @@ export default function CustomButton({ children }) {
           fontWeight: 700,
         },
       }}
+      onClick={nav ? () => navigate(nav) : null}
     >
       {children}
     </Button>

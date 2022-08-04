@@ -2,8 +2,12 @@ import React from "react";
 import { Container } from "@mui/system";
 import { Box, Typography } from "@mui/material";
 import CustomButton from "../component/CustomButton";
+import { auth } from "../firebase/firebase";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 export default function HomepageBanner() {
+  const [user, loading] = useAuthState(auth);
+
   return (
     <Box
       sx={{
@@ -40,7 +44,11 @@ export default function HomepageBanner() {
             number of cryptocurrencies, the total market cap, and trading
             volume.
           </Typography>
-          <CustomButton>Get Started</CustomButton>
+          {!user && loading ? (
+            <CustomButton nav="/Register">Get Started</CustomButton>
+          ) : (
+            <CustomButton nav="/cryptocurrencies">Get Started</CustomButton>
+          )}
         </Container>
       </Box>
     </Box>
