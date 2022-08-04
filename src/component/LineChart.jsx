@@ -22,11 +22,11 @@ export default function LineChart({ coinHistory, currentPrice, coinName }) {
       <Line
         height={400}
         data={{
-          labels: coinTimestamp,
+          labels: coinTimestamp.reverse(),
           datasets: [
             {
               label: "Price In USD",
-              data: coinPrice,
+              data: coinPrice.reverse(),
               backgroundColor: "rgba(255,255,255, 0.1)",
               borderColor: "#0071bd",
               fill: true,
