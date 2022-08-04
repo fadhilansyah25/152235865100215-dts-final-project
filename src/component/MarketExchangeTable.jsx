@@ -82,9 +82,7 @@ export default function MarketExchangeTable({ theadData, data }) {
                     </Typography>
                     <Typography fontSize="14px" fontWeight="600">
                       {Number(data["price"]) < 1000
-                        ? `${formatterUSD
-                            .format(Number(data["price"]))
-                            .replace(/^(\D+)/, "$1 ")}`
+                        ? `${formatterUSD(data["price"])}`
                         : `$ ${millify(Number(data["price"]), {
                             space: true,
                             precision: 2,

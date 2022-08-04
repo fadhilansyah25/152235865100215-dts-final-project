@@ -9,7 +9,7 @@ export function valueStatsDestructor(coinData) {
       title: "Price to USD",
       iconUrl:
         "https://cdn.coinranking.com/assets/951c7d742b03901d025cbf6ed2cfd1e2.svg",
-      value: `${formatterUSD.format(coinData?.price).replace(/^(\D+)/, "$1 ")}`,
+      value: `${formatterUSD(coinData?.price)}`,
     },
     {
       title: "Price to BTC",
