@@ -11,11 +11,14 @@ import {
   Menu,
   Tooltip,
   MenuItem,
+  Modal,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Logo from "../assets/img/logo.svg";
 import useScrollPosition from "../hooks/useScrollPosition";
 import { useNavigate } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { logOut, auth } from "../firebase/firebase";
 
 const pages = [
   { title: "Home", nav: "/" },
@@ -24,13 +27,34 @@ const pages = [
   { title: "News", nav: "/news" },
   { title: "Watchlist", nav: "/watchlist" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+const settings = [
+  { title: "Provile" },
+  { title: "Account" },
+  { title: "Dashboard" },
+  { title: "Logout", nav: true },
+];
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  width: 400,
+  bgcolor: "#141414",
+  border: "2px solid #18C8FF",
+  boxShadow: 24,
+  p: 4,
+  color: "white",
+  display: "flex",
+  flexDirection: "column",
+  textAlign: "center",
+};
 
 export default function Navbar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [user, loading] = useAuthState(auth);
   const scrollPositon = useScrollPosition();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -46,6 +70,10 @@ export default function Navbar() {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <AppBar
@@ -135,37 +163,106 @@ export default function Navbar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
+          {loading ? null : user ? (
+            <Box sx={{ flexGrow: 0 }}>
+              <Typography
+                sx={{
+                  display: { md: "inline", xs: "none" },
+                  mr: 1,
+                  fontSize: "0.9rem",
+                }}
+              >
+                {user.displayName.split(" ")[0]}
+              </Typography>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="avatar name" src="">
+                    {user.displayName.slice(0, 1)}
+                  </Avatar>
+                </IconButton>
+              </Tooltip>
+              <Menu
+                sx={{ mt: "45px" }}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                {settings.map((setting) => (
+                  <MenuItem
+                    key={setting.title}
+                    onClick={
+                      setting.nav
+                        ? () => {
+                            handleOpen();
+                            handleCloseUserMenu();
+                          }
+                        : handleCloseUserMenu
+                    }
+                  >
+                    <Typography textAlign="center">{setting.title}</Typography>
+                  </MenuItem>
+                ))}
+              </Menu>
+            </Box>
+          ) : (
+            <Button
+              color="error"
+              variant="contained"
+              sx={{
+                textTransform: "none",
+                px: 5,
+                background:
+                  "linear-gradient(225deg, #18C8FF 14.89%, #933FFE 85.85%)",
+                transition: "background 0.7s",
+                "&:hover": {
+                  background: "#933FFE",
+                },
               }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
+              onClick={() => navigate("/login")}
             >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+              Sign In
+            </Button>
+          )}
         </Toolbar>
       </Container>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-description" sx={{ mb: 5 }}>
+            Are you sure want to Quit?
+          </Typography>
+          <Button
+            color="primary"
+            variant="contained"
+            sx={{
+              textTransform: "none",
+              px: 5,
+              backgroundColor: "#18C8FF",
+              color: "white"
+            }}
+            onClick={() => {
+              handleClose();
+              logOut();
+            }}
+          >
+            Yeah, Im Sure
+          </Button>
+        </Box>
+      </Modal>
     </AppBar>
   );
 }
