@@ -64,7 +64,7 @@ export default function Routers() {
           </ProtectLoginRegister>
         }
       />
-      <Route path="/*" element={<Homepage />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 }
