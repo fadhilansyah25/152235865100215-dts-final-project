@@ -11,24 +11,29 @@ import {
 } from "../services/cryptoApi";
 import {
   Box,
+  Button,
   Container,
-  Typography,
   Skeleton,
-  Chip,
   Stack,
+  Typography,
 } from "@mui/material";
 import LineChart from "../component/LineChart";
 import CryptoDesc from "../component/CryptoDesc";
+import OhlcDataDesc from "../component/OhlcDataDesc";
 import CryptoDataTable from "../container/CryptoDataTable";
 import CryptoMarketStats from "../container/CryptoMarketStats";
 import {
   valueStatsDestructor,
   otherStatsDestructor,
 } from "../utils/destructCryptoData";
-import { formatterUSD } from "../utils/currencyFormatter";
+import { INSERT_WATCHLIST, GET_WATCHLIST } from "../graphql/queries";
+import { useMutation, useSubscription } from "@apollo/client/react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../firebase/firebase";
 
 export default function CryptoDetailsPage() {
   const { id } = useParams();
+  const [user] = useAuthState(auth);
   const { data: cryptoDetails } = useGetCryptoDetailsQuery(id);
   const { data: cryptoExchange } = useGetCryptoExchangesQuery(id);
   const { data: cryptoMarkets } = useGetCryptoMarketsQuery(id);
@@ -41,10 +46,16 @@ export default function CryptoDetailsPage() {
     interval: "day",
     limit: 1,
   });
+  const [insertWatchlist] = useMutation(INSERT_WATCHLIST);
+  const { data: watchlistData, loading } = useSubscription(GET_WATCHLIST, {
+    variables: { firebaseuid: user.uid },
+  });
+
   const coinData = cryptoDetails?.data?.coin;
   const exchanges = cryptoExchange?.data?.exchanges;
   const markets = cryptoMarkets?.data?.markets;
   const priceHistory = cryptoHistory?.data;
+  const watchlist = watchlistData?.coinflip_coin_watchlist;
   const [ohlc] = cryptoOhlc ? cryptoOhlc?.data?.ohlc : [undefined];
 
   const valueStats = !cryptoDetails
@@ -55,11 +66,23 @@ export default function CryptoDetailsPage() {
     ? undefined
     : otherStatsDestructor(coinData);
 
+  const handleInsert = async () => {
+    await insertWatchlist({
+      variables: {
+        firebaseuid: user.uid,
+        iconUrl: coinData?.iconUrl,
+        name: coinData?.name,
+        symbol: coinData?.symbol,
+        coinId: coinData?.uuid,
+      },
+    });
+  };
+
   return (
     <>
       <Navbar />
       <Container sx={{ mt: 8, mb: 5, pt: 5 }} maxWidth="lg">
-        {/* <Box display="flex" sx={{ flexFlow: "column", alignItems: "center" }}>
+        <Box display="flex" sx={{ flexFlow: "column", alignItems: "center" }}>
           <Typography
             variant="h5"
             sx={{ fontWeight: 700, textAlign: "center", mb: 3 }}
@@ -70,115 +93,19 @@ export default function CryptoDetailsPage() {
               `${coinData?.name} Coin Statistics`
             )}
           </Typography>
-        </Box> */}
-        <Stack direction="row" justifyContent="space-between">
-          <Stack direction="row" spacing={1} alignItems="center">
-            <Box
-              component="img"
-              src={coinData?.iconUrl}
-              alt={coinData?.name}
-              sx={{ maxHeight: 30 }}
-            />
-            <Typography variant="h6" fontWeight="600">
-              {coinData?.name}
-            </Typography>
-            <Typography variant="body2" color="secondary" fontWeight="400">
-              {coinData?.symbol}
-            </Typography>
-            <Chip
-              sx={{ borderRadius: 1 }}
-              size="small"
-              variant="outlined"
-              color="secondary"
-              label={`#${coinData?.rank}`}
-            />
-          </Stack>
-          <Stack direction="row" spacing={1}>
-            <Typography color="secondary" variant="h6">
-              Price
-            </Typography>
-            <Typography variant="h6" fontWeight="700">
-              {formatterUSD(coinData?.price)}
-            </Typography>
-          </Stack>
-        </Stack>
-        <Stack
-          direction="row"
-          sx={{ mt: 2 }}
-          spacing={2}
-          alignItems="center"
-          justifyContent="space-between"
-        >
-          <Stack direction="row">
-            <Typography color="secondary" sx={{ mr: 1 }} variant="caption">
-              Open
-            </Typography>
-            <Typography variant="caption" fontWeight="700">
-              {ohlc ? formatterUSD(ohlc?.open) : <Skeleton width={100} />}
-            </Typography>
-          </Stack>
-          <Stack direction="row">
-            <Typography color="secondary" sx={{ mr: 1 }} variant="caption">
-              High
-            </Typography>
-            <Typography variant="caption" fontWeight="700">
-              {ohlc ? formatterUSD(ohlc?.high) : <Skeleton width={100} />}
-            </Typography>
-          </Stack>
-          <Stack direction="row">
-            <Typography color="secondary" sx={{ mr: 1 }} variant="caption">
-              Low
-            </Typography>
-            <Typography variant="caption" fontWeight="700">
-              {ohlc ? formatterUSD(ohlc?.low) : <Skeleton width={100} />}
-            </Typography>
-          </Stack>
-          <Stack direction="row">
-            <Typography color="secondary" sx={{ mr: 1 }} variant="caption">
-              Average
-            </Typography>
-            <Typography variant="caption" fontWeight="700">
-              {ohlc ? formatterUSD(ohlc?.avg) : <Skeleton width={100} />}
-            </Typography>
-          </Stack>
-          <Stack direction="row">
-            <Typography color="secondary" sx={{ mr: 1 }} variant="caption">
-              Close
-            </Typography>
-            <Typography variant="caption" fontWeight="700">
-              {ohlc ? formatterUSD(ohlc?.close) : <Skeleton width={100} />}
-            </Typography>
-          </Stack>
-          <Stack direction="row">
-            <Typography color="secondary" sx={{ mr: 1 }} variant="caption">
-              24H
-            </Typography>
-            <Typography
-              variant="caption"
-              color={
-                Number(coinData?.change) < 0
-                  ? "#ea3943"
-                  : Number(coinData?.change) === 0
-                  ? "gray"
-                  : "#16c784"
-              }
-              fontWeight="700"
-            >
-              {coinData ? (
-                coinData?.change === null || !Number(coinData?.change) === 0 ? (
-                  "-"
-                ) : (
-                  `${Number(coinData?.change) >= 0 ? "+" : ""}${Number(
-                    coinData?.change
-                  ).toFixed(2)}%`
-                )
-              ) : (
-                <Skeleton width={100} />
-              )}
-            </Typography>
-          </Stack>
-        </Stack>
+        </Box>
+        <OhlcDataDesc coinData={coinData} ohlc={ohlc} />
         <LineChart coinHistory={priceHistory} coinName="Bitcoin" />
+        <Stack direction="row" justifyContent="end">
+          <Button
+            variant="outlined"
+            sx={{ mb: 1, textTransform: "none" }}
+            onClick={handleInsert}
+            disabled={loading ? true : watchlist?.some((o) => o.coinId === id)}
+          >
+            Add to watchlist
+          </Button>
+        </Stack>
         <Box
           display="grid"
           gridTemplateColumns="repeat(2, 2fr)"
