@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, CardContent, Skeleton, Typography, Stack } from "@mui/material";
-import millify from "millify";
+import {millifyNumber} from '../utils/currencyFormatter'
 
 export default function CardHomepage({ title, data, prefix, setMil }) {
   return data ? (
@@ -27,19 +27,7 @@ export default function CardHomepage({ title, data, prefix, setMil }) {
         >
           {prefix ? `${prefix} ` : null}
           {setMil
-            ? millify(Number(data), {
-                space: true,
-                precision: 3,
-                units: [
-                  "",
-                  "K",
-                  "Million",
-                  "Billion",
-                  "Trillion",
-                  "Quadrillion",
-                  "Quintillion",
-                ],
-              })
+            ? millifyNumber(data)
             : Number(data).toLocaleString()}
         </Typography>
       </CardContent>

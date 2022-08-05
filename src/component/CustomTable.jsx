@@ -17,6 +17,12 @@ import Logo from "../assets/img/logo.svg";
 import TablePaginationActions from "./TablePaginationActions";
 import CustomTableSkeleton from "./CustomTableSkeleton";
 import { useNavigate } from "react-router-dom";
+import {
+  Sparklines,
+  SparklinesCurve,
+  SparklinesLine,
+  SparklinesReferenceLine,
+} from "react-sparklines";
 
 export default function CustomTable({
   titleData = [],
@@ -131,10 +137,17 @@ export default function CustomTable({
                         ).toFixed(2)}%`}
                   </TableCell>
                   <TableCell align="right">
-                    {formatterUSD(item.marketCap)}
+                    {formatterUSD(item.marketCap, 0)}
                   </TableCell>
                   <TableCell align="right">
-                    {formatterUSD(item["24hVolume"])}
+                    {formatterUSD(item["24hVolume"], 0)}
+                  </TableCell>
+                  <TableCell align="right">
+                    <Sparklines data={item?.sparkline} svgHeight={25}>
+                      <SparklinesLine color="#18C8FF" />
+                      <SparklinesCurve />
+                      <SparklinesReferenceLine type="avg" />
+                    </Sparklines>
                   </TableCell>
                 </TableRow>
               ))

@@ -34,6 +34,9 @@ export default function CustomTableSkeleton({setNumber}) {
       <TableCell align="right">
         <Skeleton />
       </TableCell>
+      <TableCell align="right">
+        <Skeleton />
+      </TableCell>
     </TableRow>
   ));
 }

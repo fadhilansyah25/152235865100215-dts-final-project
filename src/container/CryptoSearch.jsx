@@ -51,6 +51,7 @@ export default function CryptoSearch() {
           "24h %",
           "Market Cap",
           "Volume(24h)",
+          "Last 7d"
         ]}
         data={data?.data?.coins}
         setNumber

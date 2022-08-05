@@ -56,6 +56,7 @@ export default function StatsBanner() {
           "24h %",
           "Market Cap",
           "Volume(24h)",
+          "Last 7d"
         ]}
         data={data?.data.coins}
       />
