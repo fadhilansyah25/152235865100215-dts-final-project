@@ -28,10 +28,10 @@ const pages = [
   { title: "Watchlist", nav: "/watchlist" },
 ];
 const settings = [
-  { title: "Provile" },
-  { title: "Account" },
-  { title: "Dashboard" },
-  { title: "Logout", nav: true },
+  { title: "Profile", nav: "/profile" },
+  { title: "Account", nav: "/account" },
+  { title: "Dashboard", nav: "/dashboard" },
+  { title: "Logout", logOut: true },
 ];
 const style = {
   position: "absolute",
@@ -201,12 +201,14 @@ export default function Navbar() {
                   <MenuItem
                     key={setting.title}
                     onClick={
-                      setting.nav
+                      setting.logOut
                         ? () => {
                             handleOpen();
                             handleCloseUserMenu();
                           }
-                        : handleCloseUserMenu
+                        : () => {
+                            navigate(`${setting.nav}/${user.uid}`);
+                          }
                     }
                   >
                     <Typography textAlign="center">{setting.title}</Typography>
@@ -252,7 +254,7 @@ export default function Navbar() {
               textTransform: "none",
               px: 5,
               backgroundColor: "#18C8FF",
-              color: "white"
+              color: "white",
             }}
             onClick={() => {
               handleClose();

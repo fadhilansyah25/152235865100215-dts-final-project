@@ -10,6 +10,7 @@ import CryptoNewsPage from "../pages/CryptoNewsPage";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import WatchListPage from "../pages/WatchListPage";
+import ExchangesPage from "../pages/ExchangesPage";
 
 export default function Routers() {
   useScrollToTop();
@@ -37,6 +38,38 @@ export default function Routers() {
         element={
           <PrivateRoute>
             <CryptoDetailsPage />
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/profile/:id"
+        element={
+          <PrivateRoute>
+            <ExchangesPage/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/account/:id"
+        element={
+          <PrivateRoute>
+            <ExchangesPage/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/dashboard/:id"
+        element={
+          <PrivateRoute>
+            <ExchangesPage/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path="/exchange"
+        element={
+          <PrivateRoute>
+            <ExchangesPage/>
           </PrivateRoute>
         }
       />
