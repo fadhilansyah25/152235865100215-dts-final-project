@@ -41,19 +41,25 @@ Clone down this repository. You will need `node` and `npm` installed globally on
 
 Installation:
 
-``npm install``  
+```bash
+npm install
+```  
 
 To Run Test Suite:  
 
-`npm test`  
+```bash
+npm test
+```  
 
 To Start Server:
 
-`npm start`  
+```bash
+npm start
+```  
 
 To Visit App:
 
-`localhost:3000/ideas`  
+http://localhost:3000/
 
 <br/>
 
