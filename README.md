@@ -45,7 +45,7 @@ Project masih dalam tahap pengembangan. namun sudah dapat digunakan untuk memant
   Bitcoin Details Page
   <a href="https://coinflip-tracker.netlify.app/cryptocurrencies/details/Qwsogvtv82FCd">(Live Demo)</a>
   </figcaption>
-  
+
   <img src="./docs/app-screenshot-3.jpeg" alt="CoinFlip Bitcoin Details Page Screenshot"/>
 </figure>
 
@@ -117,3 +117,10 @@ make sure to use the latest version of your browser. and also have fake email re
 #### Deployment:
 - [Netlify](https://www.netlify.com/)
 
+<br/>
+
+## Credits
+
+Big thanks to [Digitalent Scholarship](https://digitalent.kominfo.go.id/) for giving me this opportunity to learn and grow as a developer.
+
+I also want to thank my mentor [withered-flowers](https://github.com/withered-flowers) for his guidance and support throughout this project.
