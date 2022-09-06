@@ -17,32 +17,37 @@ Project masih dalam tahap pengembangan. namun sudah dapat digunakan untuk memant
 <div align="center">
 
 <figure>
-  <img src="./docs/app-screenshot-1.jpeg" alt="CoinFlip Landing Page Screenshot"/>
   <figcaption>
   Landing Page 
   <a href="https://coinflip-tracker.netlify.app/">(Live Demo)</a>
   </figcaption>
+
+  <img src="./docs/app-screenshot-1.jpeg" alt="CoinFlip Landing Page Screenshot"/>
 </figure>
 
 <br/>
 <br/>
 
 <figure>
-  <img src="./docs/app-screenshot-2.jpeg" alt="CoinFlip Cyptolist Page Screenshot"/>
   <figcaption>
   Cyptolist Page
   <a href="https://coinflip-tracker.netlify.app/cryptocurrencies/">(Live Demo)</a>
-</figcaption>
+  </figcaption>
+
+  <img src="./docs/app-screenshot-2.jpeg" alt="CoinFlip Cyptolist Page Screenshot"/>
+</figure>
 
 <br/>
 <br/>
 
 <figure>
-  <img src="./docs/app-screenshot-3.jpeg" alt="CoinFlip Bitcoin Details Page Screenshot"/>
   <figcaption>
   Bitcoin Details Page
   <a href="https://coinflip-tracker.netlify.app/cryptocurrencies/details/Qwsogvtv82FCd">(Live Demo)</a>
-</figcaption>
+  </figcaption>
+  
+  <img src="./docs/app-screenshot-3.jpeg" alt="CoinFlip Bitcoin Details Page Screenshot"/>
+</figure>
 
 </div>
 
