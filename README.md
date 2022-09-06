@@ -4,13 +4,9 @@ Aplikasi untuk memantau nilai tukar kripto terkini berdasarkan data dari third-p
 
 Aplikasi ini dibuat untuk memenuhi tugas akhir pelatihan Digitalent Scholarship Proffesional Academy 2022 Batch 2. React Developer Class.
 
-<br/>
-
 ## Project Status
 
 Project masih dalam tahap pengembangan. namun sudah dapat digunakan untuk memantau nilai tukar kripto. User juga dapat melakukan sign up dan login untuk menyimpan list mata uang kripto yang ingin di-track.
-
-<br/>
 
 ## Project Screen Shot(s)
 
@@ -26,7 +22,6 @@ Project masih dalam tahap pengembangan. namun sudah dapat digunakan untuk memant
 </figure>
 
 <br/>
-<br/>
 
 <figure>
   <figcaption>
@@ -37,7 +32,6 @@ Project masih dalam tahap pengembangan. namun sudah dapat digunakan untuk memant
   <img src="./docs/app-screenshot-2.jpeg" alt="CoinFlip Cyptolist Page Screenshot"/>
 </figure>
 
-<br/>
 <br/>
 
 <figure>
@@ -79,8 +73,6 @@ To Visit Development App:
 
 http://localhost:3000/
 
-<br/>
-
 ## Demo Link
 
 You can see the demo of this project here:
@@ -88,8 +80,6 @@ You can see the demo of this project here:
 https://coinflip-tracker.netlify.app/
 
 make sure to use the latest version of your browser. and also have fake email ready for sign up and login.
-
-<br/>
 
 ## Tech Stack
 
@@ -116,8 +106,6 @@ make sure to use the latest version of your browser. and also have fake email re
 
 #### Deployment:
 - [Netlify](https://www.netlify.com/)
-
-<br/>
 
 ## Credits
 
