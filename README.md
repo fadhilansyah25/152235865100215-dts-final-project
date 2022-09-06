@@ -15,21 +15,34 @@ Project masih dalam tahap pengembangan. namun sudah dapat digunakan untuk memant
 ## Project Screen Shot(s)
 
 <div align="center">
-    
-![CoinFlip App Screenshot](./docs/app-screenshot-1.jpeg)
-<p><small>Landing Page</small></p>
+
+<figure>
+  <img src="./docs/app-screenshot-1.jpeg" alt="CoinFlip Landing Page Screenshot"/>
+  <figcaption>
+  Landing Page 
+  <a href="https://coinflip-tracker.netlify.app/">(Live Demo)</a>
+  </figcaption>
+</figure>
 
 <br/>
 <br/>
 
-![CoinFlip App Screenshot](./docs/app-screenshot-2.jpeg)
-<p><small>Crypto List Page</small></p>
+<figure>
+  <img src="./docs/app-screenshot-2.jpeg" alt="CoinFlip Cyptolist Page Screenshot"/>
+  <figcaption>
+  Cyptolist Page
+  <a href="https://coinflip-tracker.netlify.app/cryptocurrencies/">(Live Demo)</a>
+</figcaption>
 
 <br/>
 <br/>
 
-![CoinFlip App Screenshot](./docs/app-screenshot-3.jpeg)
-<p><small>Crypto Details Page</small></p>
+<figure>
+  <img src="./docs/app-screenshot-3.jpeg" alt="CoinFlip Bitcoin Details Page Screenshot"/>
+  <figcaption>
+  Bitcoin Details Page
+  <a href="https://coinflip-tracker.netlify.app/cryptocurrencies/details/Qwsogvtv82FCd">(Live Demo)</a>
+</figcaption>
 
 </div>
 
@@ -57,7 +70,7 @@ To Start Server:
 npm start
 ```  
 
-To Visit App:
+To Visit Development App:
 
 http://localhost:3000/
 
@@ -67,7 +80,7 @@ http://localhost:3000/
 
 You can see the demo of this project here:
 
-https://coinflip-crypto-tracker.netlify.app/
+https://coinflip-tracker.netlify.app/
 
 make sure to use the latest version of your browser. and also have fake email ready for sign up and login.
 
