@@ -22,16 +22,18 @@ Project masih dalam tahap pengembangan. namun sudah dapat digunakan untuk memant
 </figure>
 
 <br/>
+<br/>
 
 <figure>
   <figcaption>
-  Cyptolist Page
+  Cryptolist Page
   <a href="https://coinflip-tracker.netlify.app/cryptocurrencies/">(Live Demo)</a>
   </figcaption>
 
   <img src="./docs/app-screenshot-2.jpeg" alt="CoinFlip Cyptolist Page Screenshot"/>
 </figure>
 
+<br/>
 <br/>
 
 <figure>
@@ -45,6 +47,7 @@ Project masih dalam tahap pengembangan. namun sudah dapat digunakan untuk memant
 
 </div>
 
+<br/>
 <br/>
 
 ## Installation and Setup Instructions 
